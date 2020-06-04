@@ -1,5 +1,4 @@
 language: c
-
 matrix:
   include:
   - os: linux
@@ -7,6 +6,14 @@ matrix:
     dist: precise
     compiler: gcc
     arch: amd64
+    env: 
+      - BUILD=amd64-precise-gcc
+      - NO_CPP=true
+  - os: linux
+    arch: arm64
+    sudo: required
+    dist: precise
+    compiler: gcc
     env: 
       - BUILD=amd64-precise-gcc
       - NO_CPP=true
@@ -22,6 +29,12 @@ matrix:
     compiler: clang
     arch: amd64
     env: BUILD=amd64-xenial-clang   
+  - os: linux
+    arch: arm64
+    sudo: required
+    dist: xenial
+    compiler: clang
+    env: BUILD=arm64-xenial-clang   
   - os: linux
     sudo: required
     dist: xenial
@@ -40,6 +53,12 @@ matrix:
     compiler: clang
     arch: amd64
     env: BUILD=amd64-bionic-clang
+  - os: linux
+    sudo: required
+    dist: bionic
+    compiler: clang
+    arch: arm64
+    env: BUILD=armd64-bionic-clang
   - os: linux
     sudo: required
     dist: bionic
@@ -80,6 +99,5 @@ install:
 
 script:
   - bake test
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
